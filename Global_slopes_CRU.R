@@ -109,28 +109,11 @@ RGlobA<-as.numeric(as.data.frame(
   aggregate(ArNew[[3]], fact=c(720,360), fun=sum)))
 RGlobY<-RGlobP/RGlobA
 
-Gyield<-data.frame("Year"=c(1961:2010),"WYield"=WGlobY, "MYield"=MGlobY, "RYield"=RGlobY)
-Global_data[[a]]<-Gyield
-Gyield<-subset(Gyield,Year>1961)
+GyieldC<-data.frame("Year"=c(1961:2010),"WYield"=WGlobY, "MYield"=MGlobY, "RYield"=RGlobY)
+Global_data[[a]]<-GyieldC
+GyieldC<-subset(Gyield,Year>1961)
 
-X11(width=6,height=10)
-par(mfrow=c(3,1),mai=c(0.3,0.7,0.2,0.2))
-plot(Gyield$Year,Gyield$WYield,ylim=c(1,3.5),ylab="Yield (T/ha)",main="Wheat",
-     xaxt='n',cex.lab=1.3,font.lab=2)
-lines(Gyield$Year,Gyield$WYield,col="Blue")
-lines(Gyield$Year,predict(lm(Gyield$WYield~Gyield$Year)),col='Red')
-
-plot(Gyield$Year,Gyield$MYield,ylim=c(0,6),ylab="Yield (T/ha)",main="Maize",
-     xaxt='n',cex.lab=1.3,font.lab=2)
-lines(Gyield$Year,Gyield$MYield,col="Blue")
-lines(Gyield$Year,predict(lm(Gyield$MYield~Gyield$Year)),col='Red')
-
-plot(Gyield$Year,Gyield$RYield,ylim=c(1.5,6),ylab="Yield (T/ha)",main="Rice",
-     cex.lab=1.3,font.lab=2)
-lines(Gyield$Year,Gyield$RYield,col="Blue")
-lines(Gyield$Year,predict(lm(Gyield$RYield~Gyield$Year)),col='Red')
-
-dev.copy2pdf(file = paste0("Plots/",k,".pdf"))
+#dev.copy2pdf(file = paste0("Plots/",k,".pdf"))
 }
 
 names(Global_data)<-unlist(strsplit(YIFiles,split=".",fixed=TRUE))[c(TRUE,FALSE)]
